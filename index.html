@@ -17,12 +17,11 @@
   --gray: #e5e5e5;
   --gray-mid: #666666;
   --gray-light: #f7f7f7;
-  --lavender: #9b9bf0;
   --cyan: #7dd3e8;
-  --peach: #e8a070;
   --mint: #6bc4a6;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
+  --sidebar-width: 260px;
 }
 
 html { scroll-behavior: smooth; }
@@ -34,832 +33,791 @@ body {
 }
 ::selection { background: var(--blue); color: var(--white); }
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 1.25rem 2.5rem;
-  display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(30,30,30,0.06);
-  transition: transform 0.3s ease;
+/* ── LAYOUT ── */
+.layout { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-width);
+  position: fixed; top: 0; left: 0; bottom: 0;
+  background: var(--black);
+  padding: 2rem 0;
+  overflow-y: auto;
+  z-index: 100;
 }
-nav.hidden { transform: translateY(-100%); }
-.nav-logo { display: flex; align-items: center; text-decoration: none; }
-.nav-logo img { height: 28px; width: auto; }
-.nav-links { display: flex; gap: 2rem; }
-.nav-links a {
-  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--gray-mid);
-  text-decoration: none; transition: color 0.3s ease;
+.sidebar-header {
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 1rem;
 }
-.nav-links a:hover { color: var(--blue); }
+.sidebar-logo { height: 24px; width: auto; margin-bottom: 0.5rem; }
+.sidebar-title {
+  font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+.sidebar-nav { padding: 0 0.75rem; }
+.sidebar-group { margin-bottom: 1.25rem; }
+.sidebar-group-label {
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  padding: 0 0.75rem; margin-bottom: 0.4rem;
+}
+.sidebar-link {
+  display: block;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.78rem; font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  line-height: 1.4;
+}
+.sidebar-link:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.06);
+}
+.sidebar-link.active {
+  color: var(--white);
+  background: rgba(0,92,207,0.2);
+}
+.sidebar-link-icon {
+  display: inline-block;
+  width: 18px; text-align: center;
+  margin-right: 0.4rem;
+  font-size: 0.7rem;
+}
+.sidebar-cta {
+  margin: 1.5rem 1.5rem 0;
+  padding: 1rem;
+  background: rgba(0,92,207,0.15);
+  border-radius: 8px;
+  text-align: center;
+}
+.sidebar-cta a {
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--cyan); text-decoration: none;
+}
+.sidebar-cta p {
+  font-size: 0.6rem; color: rgba(255,255,255,0.35);
+  margin-top: 0.3rem;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-width: 0;
+}
 
 /* ── HERO ── */
 .hero {
-  min-height: 80vh;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  text-align: center;
-  padding: 8rem 2rem 5rem;
-  background: var(--black);
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 50%, rgba(0,92,207,0.2) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 80%, rgba(155,155,240,0.1) 0%, transparent 50%);
-}
-.hero-content { position: relative; z-index: 1; max-width: 750px; }
-.hero-badge {
-  display: inline-block; font-size: 0.6rem; font-weight: 600;
-  letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue);
-  border: 1px solid rgba(0,92,207,0.3); padding: 0.5rem 1.25rem;
-  border-radius: 100px; margin-bottom: 2rem;
+  padding: 4rem 3rem 3rem;
+  background: var(--gray-light);
+  border-bottom: 1px solid var(--gray);
 }
 .hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5.5vw, 4rem);
-  font-weight: 700; color: var(--white);
-  line-height: 1.1; letter-spacing: -0.03em;
-  margin-bottom: 1.5rem;
-}
-.hero h1 em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--cyan), var(--lavender), var(--blue));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 2rem; font-weight: 700;
+  color: var(--black); letter-spacing: -0.02em;
 }
 .hero p {
-  font-size: 1.05rem; font-weight: 300; color: var(--gray-mid);
-  line-height: 1.7; max-width: 550px; margin: 0 auto 2.5rem;
+  font-size: 0.9rem; color: var(--gray-mid);
+  margin-top: 0.5rem; line-height: 1.6;
+  max-width: 600px;
 }
 
 /* ── SECTIONS ── */
-section { padding: 6rem 2rem; }
-.section-inner { max-width: 1100px; margin: 0 auto; }
+.section {
+  padding: 3rem 3rem 4rem;
+  border-bottom: 1px solid var(--gray);
+}
 .section-label {
-  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem;
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.5rem;
 }
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-  font-weight: 700; color: var(--black);
-  line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1rem;
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--black); letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
 }
 .section-desc {
-  font-size: 0.95rem; font-weight: 400; color: #555;
-  line-height: 1.7; max-width: 600px;
+  font-size: 0.85rem; color: var(--gray-mid);
+  line-height: 1.6; max-width: 600px;
+  margin-bottom: 2rem;
 }
-
-/* ── SERVICE CATEGORY ── */
-.category { background: var(--white); border-bottom: 1px solid var(--gray); }
-.category:nth-child(even):not(.category-dark) { background: var(--gray-light); }
-.category-header { margin-bottom: 2.5rem; }
-
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-.service-card {
-  background: var(--white);
-  border: 1px solid var(--gray);
-  border-radius: 16px;
-  padding: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex; flex-direction: column;
-}
-.category:nth-child(even):not(.category-dark) .service-card { background: var(--white); }
-.service-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.06);
-}
-.service-card-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 1rem; gap: 1rem;
-}
-.service-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.1rem; font-weight: 600;
-  line-height: 1.3;
-}
-.service-price {
-  font-family: var(--font-display);
-  font-size: 1rem; font-weight: 700;
-  color: var(--blue); white-space: nowrap;
-  flex-shrink: 0;
-}
-.service-price small {
-  display: block; font-family: var(--font-body);
-  font-size: 0.65rem; font-weight: 400;
-  color: var(--gray-mid); letter-spacing: 0.02em;
-}
-.service-desc {
-  font-size: 0.82rem; font-weight: 400;
-  color: #555; line-height: 1.6;
-  margin-bottom: 1.25rem; flex: 1;
-}
-.service-why {
-  padding: 0.75rem 1rem;
-  background: rgba(0,92,207,0.04);
-  border-left: 3px solid var(--blue);
-  border-radius: 0 8px 8px 0;
-  margin-bottom: 1rem;
-}
-.service-why-label {
-  font-size: 0.6rem; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 0.3rem;
-}
-.service-why p {
-  font-size: 0.75rem; font-weight: 400;
-  color: #555; line-height: 1.5;
-}
-.service-stat {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--gray);
-}
-.service-stat-number {
-  font-family: var(--font-display);
-  font-size: 1.3rem; font-weight: 700;
-  color: var(--blue); line-height: 1;
-}
-.service-stat-label {
-  font-size: 0.65rem; font-weight: 500;
-  color: var(--gray-mid); line-height: 1.3;
-  text-transform: uppercase; letter-spacing: 0.05em;
-}
-
-/* ── DARK CATEGORY ── */
-.category-dark {
-  background: var(--black);
-  border-bottom-color: rgba(255,255,255,0.05);
-}
-.category-dark .section-label { color: var(--cyan); }
-.category-dark .section-title { color: var(--white); }
-.category-dark .section-desc { color: rgba(255,255,255,0.5); }
-.category-dark .service-card {
-  background: #2a2a2a;
-  border-color: #3a3a3a;
-}
-.category-dark .service-card:hover {
-  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
-  border-color: rgba(0,92,207,0.5);
-}
-.category-dark .service-card h3 { color: #ffffff; }
-.category-dark .service-card .service-price { color: var(--cyan); }
-.category-dark .service-card .service-price small { color: #999; }
-.category-dark .service-card .service-desc { color: #b0b0b0; }
-.category-dark .service-card .service-why {
-  background: rgba(125,211,232,0.1);
-  border-left-color: var(--cyan);
-}
-.category-dark .service-card .service-why-label { color: var(--cyan); }
-.category-dark .service-card .service-why p { color: #c0c0c0; }
-.category-dark .service-card .service-stat { border-top-color: #3a3a3a; }
-.category-dark .service-card .service-stat-number { color: var(--cyan); }
-.category-dark .service-card .service-stat-label { color: #888; }
 
 /* ── LOGO STRIP ── */
 .logo-strip {
-  display: flex; flex-wrap: wrap; gap: 1.25rem;
-  align-items: center;
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-}
-.logo-strip img {
-  height: 20px; width: auto;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-.logo-strip img:hover {
-  opacity: 1;
-}
-.category-dark .logo-strip img {
-  opacity: 0.7;
-}
-.category-dark .logo-strip img:hover {
-  opacity: 1;
-}
-.setup-logos {
   display: flex; flex-wrap: wrap; gap: 1rem;
-  align-items: center;
-  margin-top: 0.75rem;
-  margin-bottom: 1.5rem;
+  align-items: center; margin-bottom: 2rem;
 }
-.setup-logos img {
-  height: 18px; width: auto;
-  opacity: 0.65;
-  transition: opacity 0.3s ease;
-}
-.setup-logos img:hover {
-  opacity: 1;
-}
+.logo-strip img { height: 20px; width: auto; opacity: 0.7; }
+.logo-strip img:hover { opacity: 1; }
 
-/* ── SETUP TABLE ── */
-.setup-grid {
+/* ── SERVICE CARDS ── */
+.card-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
 }
-.setup-group h3 {
-  font-family: var(--font-display);
-  font-size: 1rem; font-weight: 600;
-  color: var(--black); margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--blue);
-}
-.setup-table {
-  width: 100%; border-collapse: collapse;
-}
-.setup-table th {
-  text-align: left; padding: 0.6rem 1rem;
-  font-size: 0.6rem; font-weight: 600;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--gray-mid);
-  border-bottom: 1px solid var(--gray);
-}
-.setup-table td {
-  padding: 0.75rem 1rem;
-  font-size: 0.82rem; color: #555;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-}
-.setup-table td:first-child {
-  font-weight: 600; color: var(--black);
-}
-.setup-table td:nth-child(3) {
-  font-family: var(--font-display);
-  font-weight: 700; color: var(--blue);
-}
-.setup-table tr:hover td { background: rgba(0,92,207,0.02); }
-
-/* ── CTA ── */
-.cta {
-  background: var(--blue);
-  padding: 6rem 2rem;
-  text-align: center;
-  position: relative; overflow: hidden;
-}
-.cta::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 60%);
-}
-.cta-inner { position: relative; z-index: 1; max-width: 550px; margin: 0 auto; }
-.cta h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-  font-weight: 700; color: var(--white);
-  line-height: 1.2; margin-bottom: 1rem;
-}
-.cta p {
-  font-size: 0.95rem; font-weight: 300;
-  color: rgba(255,255,255,0.7); line-height: 1.7;
-  margin-bottom: 2rem;
-}
-.cta-email {
-  display: inline-block; padding: 0.9rem 2.5rem;
-  background: var(--white); color: var(--blue);
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 0.9rem; border-radius: 8px;
-  text-decoration: none;
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 12px;
+  padding: 1.75rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.cta-email:hover {
+.card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+.card-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; margin-bottom: 0.75rem; gap: 1rem;
+}
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 600;
+}
+.card-price {
+  font-family: var(--font-display);
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--blue); white-space: nowrap;
+}
+.card-price small {
+  display: block; font-family: var(--font-body);
+  font-size: 0.6rem; font-weight: 400;
+  color: var(--gray-mid);
+}
+.card-desc {
+  font-size: 0.78rem; color: #555;
+  line-height: 1.6; margin-bottom: 1rem;
+}
+.card-why {
+  padding: 0.6rem 0.8rem;
+  background: rgba(0,92,207,0.04);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 0.75rem;
+}
+.card-why-label {
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.2rem;
+}
+.card-why p { font-size: 0.7rem; color: #555; line-height: 1.5; }
+.card-stat {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding-top: 0.6rem; border-top: 1px solid var(--gray);
+}
+.card-stat-num {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 700; color: var(--blue);
+}
+.card-stat-label {
+  font-size: 0.6rem; font-weight: 500; color: var(--gray-mid);
+  text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.3;
+}
+
+/* ── SETUP TABLES ── */
+.setup-group { margin-bottom: 2rem; }
+.setup-group h3 {
+  font-family: var(--font-display);
+  font-size: 0.95rem; font-weight: 600;
+  padding-bottom: 0.4rem; margin-bottom: 0.75rem;
+  border-bottom: 2px solid var(--blue);
+}
+.setup-table { width: 100%; border-collapse: collapse; }
+.setup-table th {
+  text-align: left; padding: 0.5rem 0.75rem;
+  font-size: 0.55rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gray-mid); border-bottom: 1px solid var(--gray);
+}
+.setup-table td {
+  padding: 0.6rem 0.75rem; font-size: 0.78rem; color: #555;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.setup-table td:first-child { font-weight: 600; color: var(--black); }
+.setup-table td:last-child { font-family: var(--font-display); font-weight: 700; color: var(--blue); }
+.setup-logos {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  align-items: center; margin-top: 0.6rem;
+}
+.setup-logos img { height: 16px; width: auto; opacity: 0.6; }
+.setup-logos img:hover { opacity: 1; }
+
+/* ── CUSTOM CALLOUT ── */
+.callout {
+  margin-top: 1.5rem; padding: 1.25rem;
+  background: var(--gray-light); border-radius: 8px;
+  border-left: 3px solid var(--blue);
+}
+.callout h4 {
+  font-family: var(--font-display);
+  font-size: 0.85rem; font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.callout p { font-size: 0.75rem; color: #555; line-height: 1.6; }
+
+/* ── TIER TABLE ── */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.tier-card {
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.tier-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+.tier-card.featured {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px var(--blue);
+}
+.tier-badge {
+  display: inline-block; font-size: 0.5rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--blue); background: rgba(0,92,207,0.08);
+  padding: 0.2rem 0.6rem; border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+.tier-card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.tier-price {
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--blue); margin-bottom: 0.75rem;
+}
+.tier-price small {
+  font-family: var(--font-body);
+  font-size: 0.65rem; font-weight: 400;
+  color: var(--gray-mid);
+}
+.tier-features {
+  list-style: none;
+}
+.tier-features li {
+  font-size: 0.75rem; color: #555;
+  line-height: 1.5; padding: 0.3rem 0 0.3rem 1.2rem;
+  position: relative;
+}
+.tier-features li::before {
+  content: '\2713'; position: absolute; left: 0;
+  color: var(--blue); font-weight: 700; font-size: 0.7rem;
 }
 
 /* ── FOOTER ── */
 .footer {
-  background: var(--black); padding: 2rem; text-align: center;
+  padding: 2rem 3rem;
+  text-align: center;
 }
 .footer p {
-  font-size: 0.7rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: rgba(255,255,255,0.25);
+  font-size: 0.65rem; color: var(--gray-mid);
+  letter-spacing: 0.1em; text-transform: uppercase;
 }
-
-/* ── SCROLL ANIMATIONS ── */
-.reveal {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.footer img { height: 16px; width: auto; vertical-align: middle; margin-right: 6px; opacity: 0.3; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  .service-grid { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  section { padding: 4rem 1.5rem; }
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .hero, .section { padding: 2rem 1.5rem; }
+  .card-grid, .tier-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav>
-  <a href="#" class="nav-logo"><img src="cde-logo-black.png" alt="CDE"></a>
-  <div class="nav-links">
-    <a href="#paid-media">Paid Media</a>
-    <a href="#creative">Creative</a>
-    <a href="#brand-web">Brand & Web</a>
-    <a href="#setup">Setup</a>
-    <a href="#contact">Contact</a>
+<div class="layout">
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <img src="cde-logo-white.png" alt="CDE" class="sidebar-logo">
+    <div class="sidebar-title">Services & Pricing</div>
   </div>
-</nav>
+  <nav class="sidebar-nav">
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Paid Media</div>
+      <a href="#search" class="sidebar-link"><span class="sidebar-link-icon">Q</span>Search & Shopping</a>
+      <a href="#social" class="sidebar-link"><span class="sidebar-link-icon">S</span>Social Advertising</a>
+      <a href="#demand-gen" class="sidebar-link"><span class="sidebar-link-icon">V</span>Google Demand Gen</a>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Creative</div>
+      <a href="#creative" class="sidebar-link"><span class="sidebar-link-icon">C</span>Video, UGC & Design</a>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Brand & Web</div>
+      <a href="#brand" class="sidebar-link"><span class="sidebar-link-icon">B</span>Brand & Identity</a>
+      <a href="#website" class="sidebar-link"><span class="sidebar-link-icon">W</span>Website Development</a>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Ongoing Services</div>
+      <a href="#email" class="sidebar-link"><span class="sidebar-link-icon">E</span>Email Marketing</a>
+      <a href="#bi" class="sidebar-link"><span class="sidebar-link-icon">A</span>BI & Analytics</a>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Infrastructure</div>
+      <a href="#setup" class="sidebar-link"><span class="sidebar-link-icon">I</span>Setup & Integration</a>
+      <a href="#consulting" class="sidebar-link"><span class="sidebar-link-icon">H</span>Consulting</a>
+    </div>
+  </nav>
+  <div class="sidebar-cta">
+    <a href="mailto:balaji@cd-expansion.com">balaji@cd-expansion.com</a>
+    <p>Let's talk about your growth</p>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<main class="main">
 
 <!-- Hero -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">Services & Pricing</div>
-    <h1>Growth that <em>compounds</em></h1>
-    <p>Paid media, brand, web, and creative services. Transparent pricing. No hidden fees. Every service designed to generate measurable returns.</p>
-  </div>
-</section>
+<div class="hero">
+  <h1>Services & Pricing</h1>
+  <p>Transparent pricing for every service we offer. Paid media, brand, web, creative, email, analytics, and infrastructure. No hidden fees.</p>
+</div>
 
-<!-- PAID MEDIA — SEARCH -->
-<section class="category" id="paid-media">
-  <div class="section-inner">
-    <div class="category-header reveal">
-      <div class="section-label">Paid Media</div>
-      <div class="section-title">Search & Shopping</div>
-      <div class="section-desc">Capture demand when people are actively searching for what you sell. The highest-intent traffic you can buy.</div>
-      <div class="logo-strip">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google.svg" alt="Google">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Ads.svg" alt="Google Ads">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Analytics.svg" alt="Google Analytics">
-      </div>
+<!-- SEARCH & SHOPPING -->
+<div class="section" id="search">
+  <div class="section-label">Paid Media</div>
+  <div class="section-title">Search & Shopping</div>
+  <div class="section-desc">Capture demand when people are actively searching for what you sell. The highest-intent traffic you can buy.</div>
+  <div class="logo-strip">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google.svg" alt="Google">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Ads.svg" alt="Google Ads">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Analytics.svg" alt="Google Analytics">
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header"><h3>Google Search Ads</h3><div class="card-price">$1,500<small>/month</small></div></div>
+      <div class="card-desc">Campaign management, keyword strategy, bid optimization, conversion tracking, and monthly reporting.</div>
+      <div class="card-why"><div class="card-why-label">Why it matters</div><p>Search ads capture people actively looking for your product. It's the closest thing to a customer raising their hand.</p></div>
+      <div class="card-stat"><div class="card-stat-num">4.2x</div><div class="card-stat-label">Average ROAS<br>for Search Ads</div></div>
     </div>
-    <div class="service-grid reveal">
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Google Search Ads</h3>
-          <div class="service-price">$1,500<small>/month</small></div>
-        </div>
-        <div class="service-desc">Campaign management, keyword strategy, bid optimization, conversion tracking, and monthly reporting. Text-based ads targeting high-intent searches.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Search ads capture people actively looking for your product or service. It's the closest thing to a customer raising their hand.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">4.2x</div>
-          <div class="service-stat-label">Average ROAS<br>for Search Ads</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Google Shopping Ads</h3>
-          <div class="service-price">$1,500<small>/month</small></div>
-        </div>
-        <div class="service-desc">Product feed management, campaign optimization, and reporting. Your products shown with images, prices, and ratings directly in search results.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Shopping ads convert 30% higher than text ads for e-commerce. Buyers see the product and price before they click.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">30%</div>
-          <div class="service-stat-label">Higher CVR<br>vs text ads</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Google Local / Maps Ads</h3>
-          <div class="service-price">$1,500<small>/month</small></div>
-        </div>
-        <div class="service-desc">Local campaign management integrated with Google Business Profile. Drive foot traffic and phone calls from nearby customers.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>76% of people who search for something nearby visit a business within 24 hours. Local ads put you at the top of that search.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">76%</div>
-          <div class="service-stat-label">Visit within<br>24 hours</div>
-        </div>
-      </div>
+    <div class="card">
+      <div class="card-header"><h3>Google Shopping Ads</h3><div class="card-price">$1,500<small>/month</small></div></div>
+      <div class="card-desc">Product feed management, campaign optimization, and reporting. Products shown with images, prices, and ratings directly in search results.</div>
+      <div class="card-why"><div class="card-why-label">Why it matters</div><p>Shopping ads convert 30% higher than text ads for e-commerce. Buyers see the product and price before they click.</p></div>
+      <div class="card-stat"><div class="card-stat-num">30%</div><div class="card-stat-label">Higher CVR<br>vs text ads</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Google Local / Maps</h3><div class="card-price">$1,500<small>/month</small></div></div>
+      <div class="card-desc">Local campaign management integrated with Google Business Profile. Drive foot traffic and phone calls from nearby customers.</div>
+      <div class="card-why"><div class="card-why-label">Why it matters</div><p>76% of people who search nearby visit a business within 24 hours. Local ads put you at the top.</p></div>
+      <div class="card-stat"><div class="card-stat-num">76%</div><div class="card-stat-label">Visit within<br>24 hours</div></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- PAID MEDIA — SOCIAL -->
-<section class="category category-dark">
-  <div class="section-inner">
-    <div class="category-header reveal">
-      <div class="section-label">Paid Media</div>
-      <div class="section-title">Social Advertising</div>
-      <div class="section-desc">Build awareness, generate demand, and retarget visitors across social platforms. Retainer includes campaign management and a flow of static ad creative.</div>
-      <div class="logo-strip">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Facebook.svg" alt="Meta">
-        <img src="https://cdn.simpleicons.org/instagram" alt="Instagram">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/LinkedIn.svg" alt="LinkedIn">
-        <img src="https://cdn.simpleicons.org/tiktok" alt="TikTok">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Pinterest.svg" alt="Pinterest">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Twitter.svg" alt="X">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Spotify.svg" alt="Spotify/Podcasts">
-      </div>
+<!-- SOCIAL ADVERTISING -->
+<div class="section" id="social">
+  <div class="section-label">Paid Media</div>
+  <div class="section-title">Social Advertising</div>
+  <div class="section-desc">Build awareness, generate demand, and retarget visitors across social platforms. Retainer includes campaign management and a flow of static ad creative. Video and UGC commissioned separately.</div>
+  <div class="logo-strip">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Facebook.svg" alt="Meta">
+    <img src="https://cdn.simpleicons.org/instagram" alt="Instagram">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/LinkedIn.svg" alt="LinkedIn">
+    <img src="https://cdn.simpleicons.org/tiktok" alt="TikTok">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Pinterest.svg" alt="Pinterest">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Twitter.svg" alt="X">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Spotify.svg" alt="Spotify/Podcasts">
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header"><h3>Meta Ads</h3><div class="card-price">$2,000<small>/month per platform</small></div></div>
+      <div class="card-desc">Campaign management, audience targeting, optimization, reporting, plus ongoing static ad creative (single image, carousel, stories).</div>
+      <div class="card-stat"><div class="card-stat-num">3.3B</div><div class="card-stat-label">Monthly active<br>users on Meta</div></div>
     </div>
-    <div class="service-grid reveal">
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Meta Ads</h3>
-          <div class="service-price">$2,000<small>/month per platform</small></div>
-        </div>
-        <div class="service-desc">Campaign management, audience targeting, optimization, reporting, plus ongoing static ad creative (single image, carousel, stories). Video and UGC commissioned separately.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Meta's targeting reaches 3.3B users. Static creative keeps ads fresh without the cost of constant video production.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">3.3B</div>
-          <div class="service-stat-label">Monthly active<br>users on Meta</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>LinkedIn Ads</h3>
-          <div class="service-price">$2,000<small>/month</small></div>
-        </div>
-        <div class="service-desc">Campaign management, professional audience targeting, static ad creative, and reporting. Best for B2B lead generation and account-based marketing.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>LinkedIn generates 80% of B2B social leads. Higher CPMs, but the lead quality and deal size justify the cost.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">80%</div>
-          <div class="service-stat-label">Of B2B social<br>leads from LinkedIn</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Podcast Advertising</h3>
-          <div class="service-price">$750<small>/month</small></div>
-        </div>
-        <div class="service-desc">Campaign setup and management via Acast's self-serve platform. Targeting, performance monitoring, and optimization. Audio production and host outreach quoted separately.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Podcast listeners are 54% more likely to consider a brand they hear advertised. High trust, low ad fatigue.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">54%</div>
-          <div class="service-stat-label">More likely to<br>consider your brand</div>
-        </div>
-      </div>
+    <div class="card">
+      <div class="card-header"><h3>LinkedIn Ads</h3><div class="card-price">$2,000<small>/month</small></div></div>
+      <div class="card-desc">Campaign management, professional audience targeting, static ad creative, and reporting. Best for B2B lead generation.</div>
+      <div class="card-stat"><div class="card-stat-num">80%</div><div class="card-stat-label">Of B2B social<br>leads from LinkedIn</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Podcast Advertising</h3><div class="card-price">$750<small>/month</small></div></div>
+      <div class="card-desc">Campaign setup and management via Acast's self-serve platform. Audio production and host outreach quoted separately.</div>
+      <div class="card-stat"><div class="card-stat-num">54%</div><div class="card-stat-label">More likely to<br>consider your brand</div></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- PAID MEDIA — DEMAND GEN -->
-<section class="category">
-  <div class="section-inner">
-    <div class="category-header reveal">
-      <div class="section-label">Paid Media</div>
-      <div class="section-title">Google Demand Gen</div>
-      <div class="section-desc">Video-based campaigns across YouTube, Gmail, and Discover. Reaches users before they search. Demand Gen requires video creative, so we offer three tiers depending on your production needs.</div>
-      <div class="logo-strip">
-        <img src="https://cdn.simpleicons.org/youtube" alt="YouTube">
-        <img src="https://cdn.simpleicons.org/gmail" alt="Gmail">
-        <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google.svg" alt="Google Discover">
-      </div>
+<!-- GOOGLE DEMAND GEN -->
+<div class="section" id="demand-gen">
+  <div class="section-label">Paid Media</div>
+  <div class="section-title">Google Demand Gen</div>
+  <div class="section-desc">Video-based campaigns across YouTube, Gmail, and Discover. Requires video creative — we offer three tiers depending on your production needs.</div>
+  <div class="logo-strip">
+    <img src="https://cdn.simpleicons.org/youtube" alt="YouTube">
+    <img src="https://cdn.simpleicons.org/gmail" alt="Gmail">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google.svg" alt="Google Discover">
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header"><h3>Management Only</h3><div class="card-price">$1,500<small>/month</small></div></div>
+      <div class="card-desc">Campaign management, audience strategy, and reporting. You provide the video creative.</div>
+      <div class="card-why"><div class="card-why-label">Requires</div><p>Video assets provided by client or third-party production team.</p></div>
     </div>
-    <div class="service-grid reveal">
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Management Only</h3>
-          <div class="service-price">$1,500<small>/month</small></div>
-        </div>
-        <div class="service-desc">Campaign management, audience strategy, and reporting. You provide the video creative. Best for brands with an existing video library or in-house production team.</div>
-        <div class="service-why">
-          <div class="service-why-label">Requires</div>
-          <p>Video assets provided by client or third-party production team.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">3x</div>
-          <div class="service-stat-label">Wider reach vs<br>Search alone</div>
-        </div>
-      </div>
-      <div class="service-card" style="border-color: var(--blue);">
-        <div class="service-card-header">
-          <h3>Management + Video Production</h3>
-          <div class="service-price">$4,000<small>/month</small></div>
-        </div>
-        <div class="service-desc">Full campaign management plus professional video shoot (3 hours on-location) and post-production editing. CDE handles everything from script to screen.</div>
-        <div class="service-why">
-          <div class="service-why-label">Includes</div>
-          <p>Professional shoot, editing, and campaign management. Models/talent quoted separately.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">2.5x</div>
-          <div class="service-stat-label">Higher engagement<br>with pro video</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Management + UGC</h3>
-          <div class="service-price">$2,500<small>/month</small></div>
-        </div>
-        <div class="service-desc">Campaign management plus UGC creator videos. We handle briefing, creator sourcing, review, and delivery. Authentic content that performs on social feeds.</div>
-        <div class="service-why">
-          <div class="service-why-label">Includes</div>
-          <p>UGC creator sourcing and video production. Authentic, lower-cost alternative to studio shoots.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">4x</div>
-          <div class="service-stat-label">Higher CTR<br>with UGC content</div>
-        </div>
-      </div>
+    <div class="card" style="border-color: var(--blue);">
+      <div class="card-header"><h3>Management + Video Production</h3><div class="card-price">$4,000<small>/month</small></div></div>
+      <div class="card-desc">Full campaign management plus professional video shoot (3 hours on-location) and post-production editing. CDE handles everything.</div>
+      <div class="card-why"><div class="card-why-label">Includes</div><p>Professional shoot, editing, and campaign management. Models/talent quoted separately.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Management + UGC</h3><div class="card-price">$2,500<small>/month</small></div></div>
+      <div class="card-desc">Campaign management plus UGC creator videos. Briefing, creator sourcing, review, and delivery included.</div>
+      <div class="card-why"><div class="card-why-label">Includes</div><p>UGC creator sourcing and production. Authentic, lower-cost alternative to studio shoots.</p></div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- CREATIVE PRODUCTION -->
-<section class="category category-dark" id="creative">
-  <div class="section-inner">
-    <div class="category-header reveal">
-      <div class="section-label">Creative Production</div>
-      <div class="section-title">Video, UGC & Design</div>
-      <div class="section-desc">Per-project creative production. Commission video shoots, UGC creators, or design work as needed. No monthly commitment required.</div>
+<div class="section" id="creative">
+  <div class="section-label">Creative</div>
+  <div class="section-title">Video, UGC & Design</div>
+  <div class="section-desc">Per-project creative production. Commission video shoots, UGC creators, or design work as needed. No monthly commitment required.</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header"><h3>Video Shoot + Editing</h3><div class="card-price">$2,500<small>per project</small></div></div>
+      <div class="card-desc">3-hour on-location shoot with our creative director plus full post-production editing. Delivered ready for ads, social, and web.</div>
+      <div class="card-stat"><div class="card-stat-num">1,200%</div><div class="card-stat-label">More shares<br>than static</div></div>
     </div>
-    <div class="service-grid reveal">
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Video Shoot + Editing</h3>
-          <div class="service-price">$2,500<small>per project</small></div>
-        </div>
-        <div class="service-desc">3-hour on-location shoot with our creative director plus full post-production editing. Delivered ready for ads, social, and web.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Video ads generate 1,200% more shares than text and image combined. Essential for Demand Gen, social, and brand storytelling.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">1,200%</div>
-          <div class="service-stat-label">More shares<br>than static</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Models / Talent</h3>
-          <div class="service-price">$1,600<small>per shoot</small></div>
-        </div>
-        <div class="service-desc">Talent booking and on-set direction for a 3-hour shoot. Usually paired with a video production project.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Professional talent elevates production quality and brand perception. Particularly important for lifestyle and beauty brands.</p>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>UGC Creator Video</h3>
-          <div class="service-price">$845<small>per video</small></div>
-        </div>
-        <div class="service-desc">Full briefing, creator sourcing, review, and delivery. Authentic, platform-native content that feels organic in social feeds.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>92% of consumers trust earned media (like UGC) over traditional advertising. Lower cost, higher trust.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">92%</div>
-          <div class="service-stat-label">Trust UGC over<br>traditional ads</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Additional Design Support</h3>
-          <div class="service-price">$70<small>/hour</small></div>
-        </div>
-        <div class="service-desc">Ad hoc static design, carousel creation, motion graphics, and creative overflow work. Billed hourly as needed.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Flexible creative support without a retainer commitment. Perfect for one-off campaigns or seasonal pushes.</p>
-        </div>
-      </div>
+    <div class="card">
+      <div class="card-header"><h3>Models / Talent</h3><div class="card-price">$1,600<small>per shoot</small></div></div>
+      <div class="card-desc">Talent booking and on-set direction for a 3-hour shoot. Usually paired with a video production project.</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>UGC Creator Video</h3><div class="card-price">$845<small>per video</small></div></div>
+      <div class="card-desc">Full briefing, creator sourcing, review, and delivery. Authentic, platform-native content.</div>
+      <div class="card-stat"><div class="card-stat-num">92%</div><div class="card-stat-label">Trust UGC over<br>traditional ads</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Design Support</h3><div class="card-price">$70<small>/hour</small></div></div>
+      <div class="card-desc">Ad hoc static design, carousel creation, motion graphics, and creative overflow work.</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- BRAND & WEBSITE -->
-<section class="category" id="brand-web">
-  <div class="section-inner">
-    <div class="category-header reveal">
-      <div class="section-label">Brand & Website</div>
-      <div class="section-title">The foundation everything else builds on</div>
-      <div class="section-desc">Your brand and website are the first impression for every lead, every visitor, every dollar of ad spend. Get them right and everything downstream performs better.</div>
+<!-- BRAND & IDENTITY -->
+<div class="section" id="brand">
+  <div class="section-label">Brand & Web</div>
+  <div class="section-title">Brand & Identity</div>
+  <div class="section-desc">Your brand is the lens through which every marketing dollar is filtered. Get it right and everything downstream performs better.</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header"><h3>Brand Repositioning</h3><div class="card-price">$5,000<small>one-time</small></div></div>
+      <div class="card-desc">Brand strategy, visual identity system (logo, color, typography), brand guidelines, messaging framework, tone of voice, and complete file package.</div>
+      <div class="card-stat"><div class="card-stat-num">23%</div><div class="card-stat-label">Revenue increase<br>from consistent branding</div></div>
     </div>
-    <div class="service-grid reveal">
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Brand Repositioning</h3>
-          <div class="service-price">$5,000<small>one-time</small></div>
-        </div>
-        <div class="service-desc">Brand strategy, visual identity system (logo, color, typography), brand guidelines, messaging framework, tone of voice, and complete file package.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Consistent brand presentation increases revenue by up to 23%. Your brand is the lens through which every marketing dollar is filtered.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">23%</div>
-          <div class="service-stat-label">Revenue increase<br>from consistent branding</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Website Redesign</h3>
-          <div class="service-price">$10,000<small>10 pages</small></div>
-        </div>
-        <div class="service-desc">Responsive design, CMS integration, SEO foundation, analytics setup, and up to 2 rounds of design revisions. Additional pages $500-800 each.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>94% of first impressions are design-related. A slow, outdated site kills ad performance before the campaign even has a chance.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">94%</div>
-          <div class="service-stat-label">First impressions<br>are design-related</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Paid Media Microsite</h3>
-          <div class="service-price">$2,000<small>2-3 pages</small></div>
-        </div>
-        <div class="service-desc">Dedicated subdomain for paid traffic only. Conversion-optimized landing pages with isolated analytics. 100% attribution on every lead.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Dedicated landing pages convert 2-5x higher than sending ad traffic to your homepage. Clean attribution means no guesswork on ROI.</p>
-        </div>
-        <div class="service-stat">
-          <div class="service-stat-number">2-5x</div>
-          <div class="service-stat-label">Higher CVR vs<br>homepage traffic</div>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Logo Design</h3>
-          <div class="service-price">$2,000<small>one-time</small></div>
-        </div>
-        <div class="service-desc">Logo concepts, refinement, and complete file package (all formats). Standalone logo work without full brand strategy.</div>
-        <div class="service-why">
-          <div class="service-why-label">Why it matters</div>
-          <p>Your logo appears on every touchpoint. It's the most-seen element of your brand and the one most likely to be judged in milliseconds.</p>
-        </div>
-      </div>
+    <div class="card">
+      <div class="card-header"><h3>Logo Design</h3><div class="card-price">$2,000<small>one-time</small></div></div>
+      <div class="card-desc">Logo concepts, refinement, and complete file package (all formats). Standalone logo work without full brand strategy.</div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Messaging Framework</h3><div class="card-price">$1,500<small>one-time</small></div></div>
+      <div class="card-desc">Positioning, tone of voice, key messages, and audience-specific messaging. Strategy deliverable only.</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- SETUP FEES -->
-<section class="category" id="setup" style="background: var(--gray-light);">
-  <div class="section-inner">
-    <div class="category-header reveal">
-      <div class="section-label">One-Time Setup</div>
-      <div class="section-title">Infrastructure that makes everything measurable</div>
-      <div class="section-desc">Before campaigns launch, the tracking and systems need to be right. These are one-time investments that pay for themselves in the first month of accurate data.</div>
+<!-- WEBSITE DEVELOPMENT -->
+<div class="section" id="website">
+  <div class="section-label">Brand & Web</div>
+  <div class="section-title">Website Development</div>
+  <div class="section-desc">From landing pages to full platform builds. Every site is responsive, SEO-ready, and built to convert.</div>
+  <div class="tier-grid">
+    <div class="tier-card">
+      <div class="tier-badge">Landing Pages</div>
+      <h3>1-3 Pages</h3>
+      <div class="tier-price">$800-2,000</div>
+      <ul class="tier-features">
+        <li>Conversion-focused design</li>
+        <li>Responsive (mobile, tablet, desktop)</li>
+        <li>Analytics integration</li>
+        <li>A/B test ready</li>
+      </ul>
     </div>
-    <div class="setup-grid reveal">
-      <div class="setup-group">
-        <h3>Ad Platforms</h3>
-        <table class="setup-table">
-          <thead><tr><th>Platform</th><th>What's Included</th><th>Price</th></tr></thead>
-          <tbody>
-            <tr><td>Google Ads</td><td>Account structure, conversion tracking, audiences</td><td>$500</td></tr>
-            <tr><td>Meta Ads</td><td>Pixel, Conversions API (CAPI), audiences, catalog, domain verification</td><td>$750</td></tr>
-            <tr><td>LinkedIn Ads</td><td>Insight tag, matched audiences, account structure</td><td>$500</td></tr>
-            <tr><td>TikTok Ads</td><td>Pixel, Events API, audiences, account structure</td><td>$600</td></tr>
-            <tr><td>Acast / Podcast</td><td>Account config, targeting setup, UTM tracking</td><td>$300</td></tr>
-          </tbody>
-        </table>
-        <div class="setup-logos">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Ads.svg" alt="Google Ads">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Facebook.svg" alt="Meta">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/LinkedIn.svg" alt="LinkedIn">
-          <img src="https://cdn.simpleicons.org/tiktok" alt="TikTok">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Pinterest.svg" alt="Pinterest">
-          <img src="https://cdn.simpleicons.org/snapchat" alt="Snapchat">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Twitter.svg" alt="X">
-        </div>
-      </div>
-      <div class="setup-group">
-        <h3>CRM</h3>
-        <table class="setup-table">
-          <thead><tr><th>Tier</th><th>What's Included</th><th>Price</th></tr></thead>
-          <tbody>
-            <tr><td>Basic (e.g. HubSpot Starter, Pipedrive)</td><td>Contact properties, pipeline stages, forms, lead routing</td><td>$750</td></tr>
-            <tr><td>Advanced (e.g. HubSpot Pro, Salesforce)</td><td>Custom objects, workflows, lead scoring, API integrations, dashboards</td><td>$2,500</td></tr>
-          </tbody>
-        </table>
-        <div class="setup-logos">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/HubSpot.svg" alt="HubSpot">
-          <img src="https://cdn.simpleicons.org/zoho" alt="Zoho">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Monday.svg" alt="Monday">
-        </div>
-      </div>
-      <div class="setup-group">
-        <h3>Email & SMS</h3>
-        <table class="setup-table">
-          <thead><tr><th>Tier</th><th>What's Included</th><th>Price</th></tr></thead>
-          <tbody>
-            <tr><td>Basic (e.g. Mailchimp, Brevo)</td><td>Account setup, list import, templates, 2-3 automations</td><td>$750</td></tr>
-            <tr><td>Advanced (e.g. Klaviyo, ActiveCampaign)</td><td>Full flow architecture (6-8 flows), SMS, segmentation, templates</td><td>$2,000</td></tr>
-          </tbody>
-        </table>
-        <div class="setup-logos">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Mailchimp.svg" alt="Mailchimp">
-          <img src="https://cdn.simpleicons.org/brevo" alt="Brevo">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Twilio.svg" alt="Twilio">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Segment.svg" alt="Segment">
-        </div>
-      </div>
-      <div class="setup-group">
-        <h3>Analytics & Tracking</h3>
-        <table class="setup-table">
-          <thead><tr><th>Service</th><th>What's Included</th><th>Price</th></tr></thead>
-          <tbody>
-            <tr><td>Google Tag Manager</td><td>Container, triggers, tags, data layer, cross-domain tracking</td><td>$750</td></tr>
-            <tr><td>GA4 Event Tracking</td><td>Property config, custom events, conversions, audiences</td><td>$750</td></tr>
-            <tr><td>Looker Studio Dashboard</td><td>Custom reporting dashboard connecting all data sources</td><td>$600</td></tr>
-          </tbody>
-        </table>
-        <div class="setup-logos">
-          <img src="https://cdn.simpleicons.org/googletagmanager" alt="GTM">
-          <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Analytics.svg" alt="GA4">
-          <img src="https://cdn.simpleicons.org/looker" alt="Looker Studio">
-          <img src="https://cdn.simpleicons.org/hotjar" alt="Hotjar">
-        </div>
-      </div>
-      <div class="setup-group">
-        <h3>Bundles</h3>
-        <table class="setup-table">
-          <thead><tr><th>Bundle</th><th>What's Included</th><th>Price</th></tr></thead>
-          <tbody>
-            <tr><td>Starter Stack</td><td>GTM + GA4 + 1 ad platform setup</td><td>$1,500</td></tr>
-            <tr><td>Full Growth Stack</td><td>GTM + GA4 + CRM + all ad platforms</td><td>$3,000</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="tier-card">
+      <div class="tier-badge">Starter</div>
+      <h3>5-Page Site</h3>
+      <div class="tier-price">$5,000</div>
+      <ul class="tier-features">
+        <li>CMS integration</li>
+        <li>SEO foundation</li>
+        <li>Mobile responsive</li>
+        <li>GA4 setup included</li>
+        <li>1 round of revisions</li>
+      </ul>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-badge">Growth</div>
+      <h3>10-Page Site</h3>
+      <div class="tier-price">$10,000</div>
+      <ul class="tier-features">
+        <li>Full CMS integration</li>
+        <li>SEO foundation + schema</li>
+        <li>App integrations</li>
+        <li>Analytics setup</li>
+        <li>2 rounds of revisions</li>
+        <li>Blog / resources section</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <div class="tier-badge">Custom / Enterprise</div>
+      <h3>15+ Pages</h3>
+      <div class="tier-price">Custom<small> quote</small></div>
+      <ul class="tier-features">
+        <li>Custom functionality</li>
+        <li>API integrations</li>
+        <li>E-commerce builds</li>
+        <li>Multi-language</li>
+        <li>Portals / dashboards</li>
+        <li>Platform migrations</li>
+      </ul>
     </div>
   </div>
-</section>
+  <div class="callout">
+    <h4>Need something specific?</h4>
+    <p>E-commerce builds (Shopify, WooCommerce), web applications, API integrations, custom calculators, configurators, and platform migrations are scoped and quoted per project. Paid media microsites start at $2,000.</p>
+  </div>
+</div>
+
+<!-- EMAIL MARKETING -->
+<div class="section" id="email">
+  <div class="section-label">Ongoing Services</div>
+  <div class="section-title">Email Marketing</div>
+  <div class="section-desc">Ongoing campaign management, automation flows, and list growth. Every tier includes strategy, execution, and reporting.</div>
+  <div class="logo-strip">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Mailchimp.svg" alt="Mailchimp">
+    <img src="https://cdn.simpleicons.org/brevo" alt="Brevo">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Twilio.svg" alt="Twilio">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Segment.svg" alt="Segment">
+  </div>
+  <div class="tier-grid">
+    <div class="tier-card">
+      <div class="tier-badge">Essentials</div>
+      <h3>Getting Started</h3>
+      <div class="tier-price">$1,000<small>/month</small></div>
+      <ul class="tier-features">
+        <li>2-4 campaigns per month</li>
+        <li>Basic flow maintenance</li>
+        <li>List hygiene</li>
+        <li>Monthly performance report</li>
+      </ul>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-badge">Growth</div>
+      <h3>Scaling Up</h3>
+      <div class="tier-price">$1,500<small>/month</small></div>
+      <ul class="tier-features">
+        <li>6-8 campaigns per month</li>
+        <li>A/B testing</li>
+        <li>Flow optimization</li>
+        <li>Audience segmentation</li>
+        <li>Bi-weekly reporting</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <div class="tier-badge">Full Program</div>
+      <h3>Enterprise</h3>
+      <div class="tier-price">$3,000<small>/month</small></div>
+      <ul class="tier-features">
+        <li>Unlimited campaigns</li>
+        <li>Advanced automation flows</li>
+        <li>SMS integration</li>
+        <li>Deep segmentation</li>
+        <li>Weekly reporting</li>
+        <li>Strategy calls</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BI & ANALYTICS -->
+<div class="section" id="bi">
+  <div class="section-label">Ongoing Services</div>
+  <div class="section-title">BI & Analytics</div>
+  <div class="section-desc">Ongoing reporting, dashboards, and data analysis. Turn raw data into decisions.</div>
+  <div class="logo-strip">
+    <img src="https://cdn.simpleicons.org/googletagmanager" alt="GTM">
+    <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Analytics.svg" alt="GA4">
+    <img src="https://cdn.simpleicons.org/looker" alt="Looker Studio">
+    <img src="https://cdn.simpleicons.org/hotjar" alt="Hotjar">
+  </div>
+  <div class="tier-grid">
+    <div class="tier-card">
+      <div class="tier-badge">Monitoring</div>
+      <h3>Stay Informed</h3>
+      <div class="tier-price">$500<small>/month</small></div>
+      <ul class="tier-features">
+        <li>Dashboard maintenance</li>
+        <li>Monthly performance report</li>
+        <li>Anomaly alerts</li>
+      </ul>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-badge">Insights</div>
+      <h3>Act on Data</h3>
+      <div class="tier-price">$1,000<small>/month</small></div>
+      <ul class="tier-features">
+        <li>Weekly reporting</li>
+        <li>Multi-source analysis</li>
+        <li>Custom dashboards</li>
+        <li>Optimization recommendations</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <div class="tier-badge">Strategic</div>
+      <h3>C-Suite Ready</h3>
+      <div class="tier-price">$1,800<small>/month</small></div>
+      <ul class="tier-features">
+        <li>Executive dashboards</li>
+        <li>Attribution modeling</li>
+        <li>Forecasting</li>
+        <li>Weekly strategy insights</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SETUP & INTEGRATION -->
+<div class="section" id="setup">
+  <div class="section-label">Infrastructure</div>
+  <div class="section-title">Setup & Integration</div>
+  <div class="section-desc">One-time setup fees for tracking, analytics, CRM, and ad platforms. These pay for themselves in the first month of accurate data.</div>
+
+  <div class="setup-group">
+    <h3>Ad Platforms</h3>
+    <table class="setup-table">
+      <thead><tr><th>Platform</th><th>What's Included</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td>Google Ads</td><td>Account structure, conversion tracking, audiences</td><td>$500</td></tr>
+        <tr><td>Meta Ads</td><td>Pixel, Conversions API (CAPI), audiences, catalog, domain verification</td><td>$750</td></tr>
+        <tr><td>LinkedIn Ads</td><td>Insight tag, matched audiences, account structure</td><td>$500</td></tr>
+        <tr><td>TikTok Ads</td><td>Pixel, Events API, audiences, account structure</td><td>$600</td></tr>
+        <tr><td>Acast / Podcast</td><td>Account config, targeting setup, UTM tracking</td><td>$300</td></tr>
+      </tbody>
+    </table>
+    <div class="setup-logos">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Google%20Ads.svg" alt="Google Ads">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Facebook.svg" alt="Meta">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/LinkedIn.svg" alt="LinkedIn">
+      <img src="https://cdn.simpleicons.org/tiktok" alt="TikTok">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Pinterest.svg" alt="Pinterest">
+      <img src="https://cdn.simpleicons.org/snapchat" alt="Snapchat">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Twitter.svg" alt="X">
+    </div>
+  </div>
+
+  <div class="setup-group">
+    <h3>CRM</h3>
+    <table class="setup-table">
+      <thead><tr><th>Tier</th><th>What's Included</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td>Basic (e.g. HubSpot Starter, Pipedrive)</td><td>Contact properties, pipeline stages, forms, lead routing</td><td>$750</td></tr>
+        <tr><td>Advanced (e.g. HubSpot Pro, Salesforce)</td><td>Custom objects, workflows, lead scoring, API integrations, dashboards</td><td>$2,500</td></tr>
+      </tbody>
+    </table>
+    <div class="setup-logos">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/HubSpot.svg" alt="HubSpot">
+      <img src="https://cdn.simpleicons.org/zoho" alt="Zoho">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Monday.svg" alt="Monday">
+    </div>
+  </div>
+
+  <div class="setup-group">
+    <h3>Email & SMS</h3>
+    <table class="setup-table">
+      <thead><tr><th>Tier</th><th>What's Included</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td>Basic (e.g. Mailchimp, Brevo)</td><td>Account setup, list import, templates, 2-3 automations</td><td>$750</td></tr>
+        <tr><td>Advanced (e.g. Klaviyo, ActiveCampaign)</td><td>Full flow architecture (6-8 flows), SMS, segmentation, templates</td><td>$2,000</td></tr>
+      </tbody>
+    </table>
+    <div class="setup-logos">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Mailchimp.svg" alt="Mailchimp">
+      <img src="https://cdn.simpleicons.org/brevo" alt="Brevo">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Twilio.svg" alt="Twilio">
+      <img src="https://raw.githubusercontent.com/balajibhat/tech-logos/master/icons/Segment.svg" alt="Segment">
+    </div>
+  </div>
+
+  <div class="setup-group">
+    <h3>Analytics & Tracking</h3>
+    <table class="setup-table">
+      <thead><tr><th>Service</th><th>What's Included</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td>Google Tag Manager</td><td>Container, triggers, tags, data layer, cross-domain tracking</td><td>$750</td></tr>
+        <tr><td>GA4 Event Tracking</td><td>Property config, custom events, conversions, audiences</td><td>$750</td></tr>
+        <tr><td>Looker Studio Dashboard</td><td>Custom reporting dashboard connecting all data sources</td><td>$600</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="setup-group">
+    <h3>Bundles</h3>
+    <table class="setup-table">
+      <thead><tr><th>Bundle</th><th>What's Included</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td>Starter Stack</td><td>GTM + GA4 + 1 ad platform setup</td><td>$1,500</td></tr>
+        <tr><td>Full Growth Stack</td><td>GTM + GA4 + CRM + all ad platforms</td><td>$3,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <!-- CONSULTING -->
-<section class="category">
-  <div class="section-inner">
-    <div class="category-header reveal">
-      <div class="section-label">Consulting</div>
-      <div class="section-title">Expert guidance, by the hour</div>
-      <div class="section-desc">For teams that need strategic direction without a full retainer commitment.</div>
+<div class="section" id="consulting">
+  <div class="section-label">Infrastructure</div>
+  <div class="section-title">Consulting</div>
+  <div class="section-desc">Expert guidance by the hour. For teams that need strategic direction without a full retainer commitment.</div>
+  <div class="card-grid" style="max-width: 650px;">
+    <div class="card">
+      <div class="card-header"><h3>Tactical Consulting</h3><div class="card-price">$75<small>/hour</small></div></div>
+      <div class="card-desc">Hands-on guidance for paid media, analytics, and creative execution. Perfect for teams that need specific expertise on specific problems.</div>
     </div>
-    <div class="service-grid reveal" style="max-width: 700px;">
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Tactical Consulting</h3>
-          <div class="service-price">$75<small>/hour</small></div>
-        </div>
-        <div class="service-desc">Hands-on guidance for paid media, analytics, and creative execution. Perfect for teams that need specific expertise on specific problems.</div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-header">
-          <h3>Strategic Consulting</h3>
-          <div class="service-price">$125<small>/hour</small></div>
-        </div>
-        <div class="service-desc">Business strategy, growth advisory, and executive alignment. Direct access to CDE leadership for high-level decisions.</div>
-      </div>
+    <div class="card">
+      <div class="card-header"><h3>Strategic Consulting</h3><div class="card-price">$125<small>/hour</small></div></div>
+      <div class="card-desc">Business strategy, growth advisory, and executive alignment. Direct access to CDE leadership for high-level decisions.</div>
     </div>
   </div>
-</section>
-
-<!-- CTA -->
-<section class="cta" id="contact">
-  <div class="cta-inner">
-    <h2>Let's build your growth engine</h2>
-    <p>Every engagement starts with a conversation. Tell us where you are, where you want to be, and we'll map the path.</p>
-    <a href="mailto:balaji@cd-expansion.com" class="cta-email">balaji@cd-expansion.com</a>
-  </div>
-</section>
+</div>
 
 <!-- Footer -->
 <div class="footer">
-  <p><img src="cde-logo-white.png" alt="CDE" style="height: 18px; width: auto; vertical-align: middle; margin-right: 8px; opacity: 0.4;"> Core Digital Expansion &mdash; 2026</p>
+  <p><img src="cde-logo-black.png" alt="CDE"> Core Digital Expansion &mdash; 2026</p>
+</div>
+
+</main>
 </div>
 
 <script>
-// Scroll reveal
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.1 });
-reveals.forEach(el => observer.observe(el));
-
-// Nav hide on scroll
-let lastScroll = 0;
+// Active sidebar link on scroll
+const sections = document.querySelectorAll('.section[id]');
+const links = document.querySelectorAll('.sidebar-link');
 window.addEventListener('scroll', () => {
-  const nav = document.querySelector('nav');
-  const y = window.pageYOffset;
-  nav.classList.toggle('hidden', y > lastScroll && y > 100);
-  lastScroll = y;
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
 });
 </script>
 
