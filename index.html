@@ -224,6 +224,48 @@ section { padding: 6rem 2rem; }
 .category-dark .service-card .service-stat-number { color: var(--cyan); }
 .category-dark .service-card .service-stat-label { color: #888; }
 
+/* ── LOGO STRIP ── */
+.logo-strip {
+  display: flex; flex-wrap: wrap; gap: 1.25rem;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+}
+.logo-strip img {
+  height: 18px; width: auto;
+  opacity: 0.35;
+  filter: grayscale(100%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.logo-strip img:hover {
+  opacity: 0.8;
+  filter: grayscale(0%);
+}
+.category-dark .logo-strip img {
+  filter: grayscale(100%) brightness(3);
+  opacity: 0.3;
+}
+.category-dark .logo-strip img:hover {
+  filter: grayscale(0%) brightness(1);
+  opacity: 0.9;
+}
+.setup-logos {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.setup-logos img {
+  height: 16px; width: auto;
+  opacity: 0.3;
+  filter: grayscale(100%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.setup-logos img:hover {
+  opacity: 0.7;
+  filter: grayscale(0%);
+}
+
 /* ── SETUP TABLE ── */
 .setup-grid {
   display: grid;
@@ -353,6 +395,11 @@ section { padding: 6rem 2rem; }
       <div class="section-label">Paid Media</div>
       <div class="section-title">Search & Shopping</div>
       <div class="section-desc">Capture demand when people are actively searching for what you sell. The highest-intent traffic you can buy.</div>
+      <div class="logo-strip">
+        <img src="https://cdn.simpleicons.org/google" alt="Google">
+        <img src="https://cdn.simpleicons.org/googleads" alt="Google Ads">
+        <img src="https://cdn.simpleicons.org/microsoftbing" alt="Microsoft Bing">
+      </div>
     </div>
     <div class="service-grid reveal">
       <div class="service-card">
@@ -411,6 +458,15 @@ section { padding: 6rem 2rem; }
       <div class="section-label">Paid Media</div>
       <div class="section-title">Social Advertising</div>
       <div class="section-desc">Build awareness, generate demand, and retarget visitors across social platforms. Retainer includes campaign management and a flow of static ad creative.</div>
+      <div class="logo-strip">
+        <img src="https://cdn.simpleicons.org/meta" alt="Meta">
+        <img src="https://cdn.simpleicons.org/instagram" alt="Instagram">
+        <img src="https://cdn.simpleicons.org/linkedin" alt="LinkedIn">
+        <img src="https://cdn.simpleicons.org/tiktok" alt="TikTok">
+        <img src="https://cdn.simpleicons.org/pinterest" alt="Pinterest">
+        <img src="https://cdn.simpleicons.org/x" alt="X">
+        <img src="https://cdn.simpleicons.org/acast" alt="Acast">
+      </div>
     </div>
     <div class="service-grid reveal">
       <div class="service-card">
@@ -469,6 +525,11 @@ section { padding: 6rem 2rem; }
       <div class="section-label">Paid Media</div>
       <div class="section-title">Google Demand Gen</div>
       <div class="section-desc">Video-based campaigns across YouTube, Gmail, and Discover. Reaches users before they search. Demand Gen requires video creative, so we offer three tiers depending on your production needs.</div>
+      <div class="logo-strip">
+        <img src="https://cdn.simpleicons.org/youtube" alt="YouTube">
+        <img src="https://cdn.simpleicons.org/gmail" alt="Gmail">
+        <img src="https://cdn.simpleicons.org/google" alt="Google Discover">
+      </div>
     </div>
     <div class="service-grid reveal">
       <div class="service-card">
@@ -675,26 +736,50 @@ section { padding: 6rem 2rem; }
             <tr><td>Acast / Podcast</td><td>Account config, targeting setup, UTM tracking</td><td>$300</td></tr>
           </tbody>
         </table>
+        <div class="setup-logos">
+          <img src="https://cdn.simpleicons.org/googleads" alt="Google Ads">
+          <img src="https://cdn.simpleicons.org/meta" alt="Meta">
+          <img src="https://cdn.simpleicons.org/linkedin" alt="LinkedIn">
+          <img src="https://cdn.simpleicons.org/tiktok" alt="TikTok">
+          <img src="https://cdn.simpleicons.org/acast" alt="Acast">
+          <img src="https://cdn.simpleicons.org/pinterest" alt="Pinterest">
+          <img src="https://cdn.simpleicons.org/snapchat" alt="Snapchat">
+        </div>
       </div>
       <div class="setup-group">
         <h3>CRM</h3>
         <table class="setup-table">
           <thead><tr><th>Tier</th><th>What's Included</th><th>Price</th></tr></thead>
           <tbody>
-            <tr><td>Basic (HubSpot Starter, Pipedrive)</td><td>Contact properties, pipeline stages, forms, lead routing</td><td>$750</td></tr>
-            <tr><td>Advanced (HubSpot Pro, Salesforce)</td><td>Custom objects, workflows, lead scoring, API integrations, dashboards</td><td>$2,500</td></tr>
+            <tr><td>Basic (e.g. HubSpot Starter, Pipedrive)</td><td>Contact properties, pipeline stages, forms, lead routing</td><td>$750</td></tr>
+            <tr><td>Advanced (e.g. HubSpot Pro, Salesforce)</td><td>Custom objects, workflows, lead scoring, API integrations, dashboards</td><td>$2,500</td></tr>
           </tbody>
         </table>
+        <div class="setup-logos">
+          <img src="https://cdn.simpleicons.org/hubspot" alt="HubSpot">
+          <img src="https://cdn.simpleicons.org/salesforce" alt="Salesforce">
+          <img src="https://cdn.simpleicons.org/pipedrive" alt="Pipedrive">
+          <img src="https://cdn.simpleicons.org/zoho" alt="Zoho">
+          <img src="https://cdn.simpleicons.org/monday" alt="Monday">
+        </div>
       </div>
       <div class="setup-group">
         <h3>Email & SMS</h3>
         <table class="setup-table">
           <thead><tr><th>Tier</th><th>What's Included</th><th>Price</th></tr></thead>
           <tbody>
-            <tr><td>Basic (Mailchimp, Brevo)</td><td>Account setup, list import, templates, 2-3 automations</td><td>$750</td></tr>
-            <tr><td>Advanced (Klaviyo, ActiveCampaign)</td><td>Full flow architecture (6-8 flows), SMS, segmentation, templates</td><td>$2,000</td></tr>
+            <tr><td>Basic (e.g. Mailchimp, Brevo)</td><td>Account setup, list import, templates, 2-3 automations</td><td>$750</td></tr>
+            <tr><td>Advanced (e.g. Klaviyo, ActiveCampaign)</td><td>Full flow architecture (6-8 flows), SMS, segmentation, templates</td><td>$2,000</td></tr>
           </tbody>
         </table>
+        <div class="setup-logos">
+          <img src="https://cdn.simpleicons.org/klaviyo" alt="Klaviyo">
+          <img src="https://cdn.simpleicons.org/mailchimp" alt="Mailchimp">
+          <img src="https://cdn.simpleicons.org/activecampaign" alt="ActiveCampaign">
+          <img src="https://cdn.simpleicons.org/brevo" alt="Brevo">
+          <img src="https://cdn.simpleicons.org/twilio" alt="Twilio">
+          <img src="https://cdn.simpleicons.org/convertkit" alt="ConvertKit">
+        </div>
       </div>
       <div class="setup-group">
         <h3>Analytics & Tracking</h3>
@@ -706,6 +791,13 @@ section { padding: 6rem 2rem; }
             <tr><td>Looker Studio Dashboard</td><td>Custom reporting dashboard connecting all data sources</td><td>$600</td></tr>
           </tbody>
         </table>
+        <div class="setup-logos">
+          <img src="https://cdn.simpleicons.org/googletagmanager" alt="GTM">
+          <img src="https://cdn.simpleicons.org/googleanalytics" alt="GA4">
+          <img src="https://cdn.simpleicons.org/looker" alt="Looker Studio">
+          <img src="https://cdn.simpleicons.org/segment" alt="Segment">
+          <img src="https://cdn.simpleicons.org/hotjar" alt="Hotjar">
+        </div>
       </div>
       <div class="setup-group">
         <h3>Bundles</h3>
