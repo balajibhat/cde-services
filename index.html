@@ -113,19 +113,38 @@ body {
 
 /* ── HERO ── */
 .hero {
-  padding: 4rem 3rem 3rem;
-  background: var(--gray-light);
-  border-bottom: 1px solid var(--gray);
+  position: relative; overflow: hidden; min-height: 100vh;
+  border-bottom: none;
 }
+.hero-canvas-wrap {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
+}
+.hero-canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 100px 48px 80px;
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-logo-bar {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 32px; align-self: flex-start;
+}
+.hero-logo-bar img { height: 32px; width: auto; filter: brightness(0) invert(1); }
 .hero h1 {
   font-family: var(--font-display);
-  font-size: 2rem; font-weight: 700;
-  color: var(--black); letter-spacing: -0.02em;
+  font-size: clamp(32px, 4vw, 48px); font-weight: 700;
+  color: #fff; letter-spacing: -0.02em;
+  max-width: 700px; line-height: 1.1; margin-bottom: 20px;
 }
-.hero p {
-  font-size: 0.9rem; color: var(--gray-mid);
-  margin-top: 0.5rem; line-height: 1.6;
-  max-width: 600px;
+.hero-subtitle {
+  font-size: 18px; color: rgba(255,255,255,0.65);
+  max-width: 640px; line-height: 1.7; margin-bottom: 32px;
+}
+.hero-mission {
+  font-size: 14px; color: rgba(255,255,255,0.55);
+  max-width: 550px; line-height: 1.6;
+  padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15);
 }
 
 /* ── SECTIONS ── */
@@ -335,7 +354,9 @@ body {
 @media (max-width: 900px) {
   .sidebar { display: none; }
   .main { margin-left: 0; }
-  .hero, .section { padding: 2rem 1.5rem; }
+  .hero-content, .section { padding: 2rem 1.5rem; }
+  .hero-content { min-height: 100vh; }
+  .hero-logo-bar img { height: 24px; }
   .card-grid, .tier-grid { grid-template-columns: 1fr; }
 }
 </style>
@@ -387,10 +408,19 @@ body {
 <main class="main">
 
 <!-- Hero -->
-<div class="hero">
-  <h1>Services & Pricing</h1>
-  <p>Transparent pricing for every service we offer. Paid media, brand, web, creative, email, analytics, and infrastructure. No hidden fees.</p>
-</div>
+<section class="hero" id="hero">
+  <div class="hero-canvas-wrap">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+  <div class="hero-content">
+    <div class="hero-logo-bar">
+      <img src="cde-logo-white.png" alt="Core Digital Expansion">
+    </div>
+    <h1>Services & Pricing</h1>
+    <p class="hero-subtitle">Transparent pricing for every service we offer. Paid media, brand, web, creative, email, analytics, and infrastructure. No hidden fees, no surprises — just the work and what it costs.</p>
+    <p class="hero-mission">Core Digital Expansion — full-stack digital growth for brands that want to move fast.</p>
+  </div>
+</section>
 
 <!-- SEARCH & SHOPPING -->
 <div class="section" id="search">
@@ -821,5 +851,6 @@ window.addEventListener('scroll', () => {
 });
 </script>
 
+<script src="hero-canvas.js"></script>
 </body>
 </html>
